@@ -112,7 +112,7 @@ $bobot = query("SELECT d.*, kr.nama_kriteria, kr.kode_kriteria
                                 <label class="text-muted small">Tanggal Perhitungan</label>
                                 <div class="fw-semibold">
                                     <i class="fas fa-calendar-alt text-success me-2"></i>
-                                    <?= date('d-m-Y H:i', strtotime($sesi['tanggal_perhitungan'])) ?>
+                                    <?= date('d-M-Y H:i', strtotime($sesi['tanggal_perhitungan'])) ?>
                                 </div>
                             </div>
 

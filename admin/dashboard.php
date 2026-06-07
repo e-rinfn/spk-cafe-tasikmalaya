@@ -119,11 +119,11 @@ $total_user = fetch_one(query("SELECT COUNT(*) as total FROM user WHERE role='us
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>Nama Sesi</th>
                                         <th>Tanggal</th>
-                                        <th>Dibuat Oleh</th>
+                                        <!-- <th>Dibuat Oleh</th> -->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -136,9 +136,9 @@ $total_user = fetch_one(query("SELECT COUNT(*) as total FROM user WHERE role='us
                                         <tr>
                                             <td><?= $no++ ?></td>
                                             <td><?= $row['nama_sesi'] ?></td>
-                                            <td><?= $row['tanggal_perhitungan'] ?></td>
-                                            <td><?= $row['created_by'] ?></td>
-                                            <td>
+                                            <td><?= date('d-M-Y', strtotime($row['tanggal_perhitungan'])) ?></td>
+                                            <!-- <td><?= $row['created_by'] ?></td> -->
+                                            <td class="text-center">
                                                 <a href="../admin/hasil_detail.php?id=<?= $row['id_sesi'] ?>" class="btn btn-sm btn-info">Lihat</a>
                                             </td>
                                         </tr>

@@ -167,8 +167,8 @@ $rata_rata = $avg_result['rata_rata'] ?? 0;
                                         <?= strtoupper($kafe['status']) ?>
                                     </span>
                                 </p>
-                                <p><strong>Terdaftar:</strong> <?= date('d-m-Y', strtotime($kafe['created_at'])) ?></p>
-                                <p><strong>Terakhir Update:</strong> <?= date('d-m-Y', strtotime($kafe['updated_at'])) ?></p>
+                                <p><strong>Terdaftar:</strong> <?= date('d-M-Y', strtotime($kafe['created_at'])) ?></p>
+                                <p><strong>Terakhir Update:</strong> <?= date('d-M-Y', strtotime($kafe['updated_at'])) ?></p>
                             </div>
                         </div>
                     </div>

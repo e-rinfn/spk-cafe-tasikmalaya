@@ -116,11 +116,11 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
                                     <div class="mb-2">
                                         <i class="ti ti-calendar text-primary"></i>
                                         <span class="small">
-                                            <?= date('d-m-Y', strtotime($sesi['tanggal_perhitungan'])) ?>
+                                            <?= date('d-M-Y', strtotime($sesi['tanggal_perhitungan'])) ?>
                                         </span>
                                         <br>
                                         <small class="text-muted">
-                                            <i class="ti ti-clock"></i> <?= date('H:i:s', strtotime($sesi['tanggal_perhitungan'])) ?>
+                                            <i class="ti ti-clock"></i> <?= date('H:i', strtotime($sesi['tanggal_perhitungan'])) ?>
                                         </small>
                                     </div>
 

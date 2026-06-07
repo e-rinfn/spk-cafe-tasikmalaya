@@ -71,7 +71,7 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama Sesi</th>
                                     <th class="text-center">Tanggal Perhitungan</th>
-                                    <th class="text-center">Dibuat Oleh</th>
+                                    <!-- <th class="text-center">Dibuat Oleh</th> -->
                                     <th class="text-center">Keterangan</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -86,8 +86,8 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
                                     <tr>
                                         <td class="text-center"><?= $no++ ?></td>
                                         <td><strong><?= $sesi['nama_sesi'] ?></strong></td>
-                                        <td><?= date('d-m-Y H:i:s', strtotime($sesi['tanggal_perhitungan'])) ?></td>
-                                        <td><?= $sesi['created_by'] ?></td>
+                                        <td><?= date('d-M-Y H:i', strtotime($sesi['tanggal_perhitungan'])) ?></td>
+                                        <!-- <td><?= $sesi['created_by'] ?></td> -->
                                         <td>
                                             <?= $sesi['keterangan'] ?>
                                             <br><small class="text-muted"><?= $count ?> kafe dinilai</small>

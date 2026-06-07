@@ -109,16 +109,16 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                             <label class="text-muted small">Tanggal Perhitungan</label>
                             <div class="fw-semibold">
                                 <i class="ti ti-calendar text-success me-2"></i>
-                                <?= date('d-m-Y H:i', strtotime($sesi['tanggal_perhitungan'])) ?>
+                                <?= date('d-M-Y H:i', strtotime($sesi['tanggal_perhitungan'])) ?>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <label class="text-muted small">Dibuat Oleh</label>
                             <div class="fw-semibold">
                                 <i class="ti ti-user text-primary me-2"></i>
                                 <?= htmlspecialchars($sesi['created_by']) ?>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-4 mb-3">
                             <label class="text-muted small">Keterangan</label>
                             <div class="fw-semibold">
