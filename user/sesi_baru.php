@@ -207,14 +207,14 @@ if ($total_kafe == 0) {
                             <div class="card-body text-center">
                                 <h5 class="mb-2">Total Bobot</h5>
                                 <div class="d-flex justify-content-center align-items-center gap-3">
-                                    <button type="button" class="btn btn-sm btn-outline-danger" id="decrementTotal" style="width: 40px;">
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-danger" id="decrementTotal" style="width: 40px;">
                                         <i class="ti ti-minus"></i>
-                                    </button>
+                                    </button> -->
                                     <div class="display-4 fw-bold" id="total_bobot">0</div>
                                     <span class="fs-3">%</span>
-                                    <button type="button" class="btn btn-sm btn-outline-success" id="incrementTotal" style="width: 40px;">
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-success" id="incrementTotal" style="width: 40px;">
                                         <i class="ti ti-plus"></i>
-                                    </button>
+                                    </button> -->
                                 </div>
                                 <div class="progress mt-3" style="height: 10px;">
                                     <div class="progress-bar bg-danger" id="total_progress" style="width: 0%"></div>
@@ -303,6 +303,12 @@ if ($total_kafe == 0) {
 
         .progress-bar {
             transition: width 0.3s ease;
+        }
+
+        .bobot-slider {
+            touch-action: pan-y pinch-zoom;
+            /* touch-action: pan-y; */
+            /* Atau yang lebih spesifik */
         }
     </style>
 
@@ -578,6 +584,31 @@ if ($total_kafe == 0) {
 
             // Hitung total awal
             hitungTotal();
+        });
+    </script>
+
+    <script>
+        // Deteksi perangkat mobile
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (isMobile()) {
+                // Sembunyikan slider di mobile, gunakan number input sebagai utama
+                const sliders = document.querySelectorAll('.bobot-slider');
+                sliders.forEach(slider => {
+                    slider.style.display = 'none';
+                    // Tampilkan pesan hint
+                    const parent = slider.closest('.input-group');
+                    if (parent) {
+                        const hint = document.createElement('small');
+                        hint.className = 'text-muted d-block text-center mt-1';
+                        hint.innerHTML = '<i class="ti ti-info-circle"></i> Gunakan tombol + / - untuk mengatur bobot';
+                        parent.parentNode.appendChild(hint);
+                    }
+                });
+            }
         });
     </script>
 
