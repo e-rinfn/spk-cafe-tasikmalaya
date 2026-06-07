@@ -85,7 +85,7 @@ $kafe = query("SELECT * FROM kafe ORDER BY id_kafe DESC");
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
-                            <thead>
+                            <thead class="table-light">
                                 <tr>
                                     <th class="text-center">ID</th>
                                     <th class="text-center">Nama Kafe</th>
@@ -105,10 +105,10 @@ $kafe = query("SELECT * FROM kafe ORDER BY id_kafe DESC");
                                         <td><?= $row['kecamatan'] ?></td>
                                         <td><?= date('H:i', strtotime($row['jam_buka'])) . ' - ' . date('H:i', strtotime($row['jam_tutup'])) ?></td>
                                         <td class="text-center"><span class="badge bg-<?= $row['status'] == 'aktif' ? 'success' : 'danger' ?>"><?= $row['status'] ?></span></td>
-                                        <td class="text-center">
-                                            <a href="kafe_edit.php?id=<?= $row['id_kafe'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="kafe_detail.php?id=<?= $row['id_kafe'] ?>" class="btn btn-info btn-sm">Detail</a>
-                                            <a href="?hapus=<?= $row['id_kafe'] ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-danger btn-sm">Hapus</a>
+                                        <td class="text-center ">
+                                            <a href="kafe_edit.php?id=<?= $row['id_kafe'] ?>" class="btn btn-warning btn-sm m-1">Edit</a>
+                                            <a href="kafe_detail.php?id=<?= $row['id_kafe'] ?>" class="btn btn-info btn-sm m-1">Detail</a>
+                                            <a href="?hapus=<?= $row['id_kafe'] ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-danger btn-sm m-1">Hapus</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

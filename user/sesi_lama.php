@@ -51,7 +51,7 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
 
             <!-- Header -->
             <div class="mb-4">
-                <h4><i class="ti ti-clock-history"></i> Riwayat Sesi Perhitungan OCRA</h4>
+                <h4><i class="ti ti-history"></i> Riwayat Sesi Perhitungan OCRA</h4>
                 <p class="text-muted">Daftar semua sesi perhitungan yang telah dilakukan</p>
             </div>
 
@@ -178,12 +178,12 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
                 </div>
 
                 <!-- Tombol Aksi -->
-                <div class="mt-4 text-center">
+                <div class="mb-4 text-center">
                     <a href="sesi_baru.php" class="btn btn-primary">
                         <i class="ti ti-plus"></i> Buat Sesi Baru
                     </a>
                 </div>
-
+                <hr>
                 <script>
                     // Update statistik completed
                     document.getElementById('completedCount').innerText = '<?= $completed ?>';

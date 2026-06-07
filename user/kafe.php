@@ -75,7 +75,7 @@ $kafe = query("SELECT * FROM kafe WHERE status = 'aktif' ORDER BY nama_kafe ASC"
 
             <div class="row mb-4">
                 <div class="col-6 col-md-3">
-                    <div class="card bg-light text-dark">
+                    <div class="card bg-white text-dark">
                         <div class="card-body text-center">
                             <h5 class="mb-0" id="totalKafeCount">
                                 <?= mysqli_num_rows($kafe) ?>
@@ -86,7 +86,7 @@ $kafe = query("SELECT * FROM kafe WHERE status = 'aktif' ORDER BY nama_kafe ASC"
                 </div>
 
                 <div class="col-6 col-md-3">
-                    <div class="card bg-light text-dark">
+                    <div class="card bg-white text-dark">
                         <div class="card-body text-center">
                             <h5 class="mb-0" id="displayCount">
                                 <?= mysqli_num_rows($kafe) ?>

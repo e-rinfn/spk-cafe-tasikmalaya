@@ -116,50 +116,63 @@ $persentase = $total_kriteria > 0 ? round(($terisi / $total_kriteria) * 100) : 0
                 <?php unset($_SESSION['success']); ?>
             <?php endif; ?>
 
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Input Nilai Kriteria Kafe</h5>
-                        <small class="text-muted">Isi nilai untuk setiap kriteria kafe yang dipilih</small>
-                    </div>
-                    <div class="card-body">
-                        <!-- Form Pilih Kafe dan Tahun -->
-                        <form method="GET" class="row mb-4">
-                            <div class="col-md-4">
-                                <label class="form-label">Pilih Kafe</label>
-                                <select name="id_kafe" class="form-select" onchange="this.form.submit()">
-                                    <option value="">-- Pilih Kafe --</option>
-                                    <?php
-                                    mysqli_data_seek($kafe_list, 0);
-                                    while ($kafe = fetch_one($kafe_list)):
-                                    ?>
-                                        <option value="<?= $kafe['id_kafe'] ?>" <?= $id_kafe == $kafe['id_kafe'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($kafe['nama_kafe']) ?>
-                                        </option>
-                                    <?php endwhile; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Tahun Penilaian</label>
-                                <select name="tahun" class="form-select" onchange="this.form.submit()">
-                                    <?php for ($y = 2020; $y <= date('Y') + 1; $y++): ?>
-                                        <option value="<?= $y ?>" <?= $tahun == $y ? 'selected' : '' ?>><?= $y ?></option>
-                                    <?php endfor; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-3 align-self-end">
-                                <a href="nilai.php" class="btn btn-secondary w-100">
-                                    <i class="ti ti-refresh"></i> Reset
-                                </a>
-                            </div>
-                        </form>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
 
-                        <?php if ($id_kafe > 0 && mysqli_num_rows($kriteria_list) > 0):
-                            $kafe_data = fetch_one(query("SELECT nama_kafe FROM kafe WHERE id_kafe = $id_kafe"));
-                            $nama_kafe = $kafe_data ? $kafe_data['nama_kafe'] : '';
-                        ?>
-                            <!-- Informasi Status Pengisian -->
-                            <!-- <div class="alert alert-info mb-4">
+                        <div class="row p-3">
+                            <div class="col-md-4">
+                                <h5>Input Nilai Kriteria Kafe</h5>
+                                <small class="text-muted">Isi nilai untuk setiap kriteria kafe yang dipilih</small>
+                            </div>
+                            <div class="col-md-8"><!-- Form Pilih Kafe dan Tahun -->
+                                <form method="GET" class="row mb-4">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Pilih Kafe</label>
+                                        <select name="id_kafe" class="form-select" onchange="this.form.submit()">
+                                            <option value="">-- Pilih Kafe --</option>
+                                            <?php
+                                            mysqli_data_seek($kafe_list, 0);
+                                            while ($kafe = fetch_one($kafe_list)):
+                                            ?>
+                                                <option value="<?= $kafe['id_kafe'] ?>" <?= $id_kafe == $kafe['id_kafe'] ? 'selected' : '' ?>>
+                                                    <?= htmlspecialchars($kafe['nama_kafe']) ?>
+                                                </option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Tahun Penilaian</label>
+                                        <select name="tahun" class="form-select" onchange="this.form.submit()">
+                                            <?php for ($y = 2020; $y <= date('Y') + 1; $y++): ?>
+                                                <option value="<?= $y ?>" <?= $tahun == $y ? 'selected' : '' ?>><?= $y ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 align-self-end">
+                                        <a href="nilai.php" class="btn btn-secondary w-100">
+                                            <i class="ti ti-refresh"></i> Reset
+                                        </a>
+                                    </div>
+                                </form>
+
+                                <?php if ($id_kafe > 0 && mysqli_num_rows($kriteria_list) > 0):
+                                    $kafe_data = fetch_one(query("SELECT nama_kafe FROM kafe WHERE id_kafe = $id_kafe"));
+                                    $nama_kafe = $kafe_data ? $kafe_data['nama_kafe'] : '';
+                                ?>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <!-- Informasi Status Pengisian -->
+                        <!-- <div class="alert alert-info mb-4">
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <strong><i class="ti ti-building"></i> Kafe:</strong> <?= htmlspecialchars($nama_kafe) ?><br>
@@ -183,51 +196,51 @@ $persentase = $total_kriteria > 0 ? round(($terisi / $total_kriteria) * 100) : 0
                                 </div>
                             </div> -->
 
-                            <form method="POST">
-                                <input type="hidden" name="id_kafe" value="<?= $id_kafe ?>">
-                                <input type="hidden" name="tahun" value="<?= $tahun ?>">
+                        <form class="p-3" method="POST">
+                            <input type="hidden" name="id_kafe" value="<?= $id_kafe ?>">
+                            <input type="hidden" name="tahun" value="<?= $tahun ?>">
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th class="text-center" width="8%">Kode</th>
-                                                <th class="text-center" width="22%">Kriteria</th>
-                                                <th class="text-center" width="10%">Jenis</th>
-                                                <th class="text-center" width="10%">Satuan</th>
-                                                <th class="text-center" width="25%">Nilai Saat Ini</th>
-                                                <!-- <th class="text-center" width="10%">Status</th> -->
-                                                <!-- <th class="text-center" width="15%">Keterangan</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            mysqli_data_seek($kriteria_list, 0);
-                                            while ($kriteria = fetch_one($kriteria_list)):
-                                                $existing_value = $nilai_existing[$kriteria['id_kriteria']] ?? '';
-                                                $has_value = ($existing_value !== '' && $existing_value !== null);
-                                                $row_class = $has_value ? '' : 'table-warning';
-                                            ?>
-                                                <tr class="<?= $row_class ?>">
-                                                    <td><strong><?= $kriteria['kode_kriteria'] ?></strong></td>
-                                                    <td><?= htmlspecialchars($kriteria['nama_kriteria']) ?></td>
-                                                    <td>
-                                                        <span class="badge bg-<?= $kriteria['jenis_kriteria'] == 'benefit' ? 'success' : 'danger' ?>">
-                                                            <?= $kriteria['jenis_kriteria'] ?>
-                                                        </span>
-                                                    </td>
-                                                    <td><?= htmlspecialchars($kriteria['satuan'] ?? '-') ?></td>
-                                                    <td>
-                                                        <input type="number"
-                                                            name="nilai[<?= $kriteria['id_kriteria'] ?>]"
-                                                            class="form-control"
-                                                            step="any"
-                                                            required
-                                                            value="<?= htmlspecialchars($existing_value) ?>"
-                                                            placeholder="Masukkan nilai"
-                                                            style="border-color: <?= $has_value ? '#28a745' : '#ffc107' ?>;">
-                                                    </td>
-                                                    <!-- <td class="text-center">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="text-center" width="8%">Kode</th>
+                                            <th class="text-center" width="22%">Kriteria</th>
+                                            <th class="text-center" width="10%">Jenis</th>
+                                            <th class="text-center" width="10%">Satuan</th>
+                                            <th class="text-center" width="25%">Nilai Saat Ini</th>
+                                            <!-- <th class="text-center" width="10%">Status</th> -->
+                                            <!-- <th class="text-center" width="15%">Keterangan</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        mysqli_data_seek($kriteria_list, 0);
+                                        while ($kriteria = fetch_one($kriteria_list)):
+                                            $existing_value = $nilai_existing[$kriteria['id_kriteria']] ?? '';
+                                            $has_value = ($existing_value !== '' && $existing_value !== null);
+                                            $row_class = $has_value ? '' : 'table-warning';
+                                        ?>
+                                            <tr class="<?= $row_class ?>">
+                                                <td><strong><?= $kriteria['kode_kriteria'] ?></strong></td>
+                                                <td><?= htmlspecialchars($kriteria['nama_kriteria']) ?></td>
+                                                <td>
+                                                    <span class="badge bg-<?= $kriteria['jenis_kriteria'] == 'benefit' ? 'success' : 'danger' ?>">
+                                                        <?= $kriteria['jenis_kriteria'] ?>
+                                                    </span>
+                                                </td>
+                                                <td><?= htmlspecialchars($kriteria['satuan'] ?? '-') ?></td>
+                                                <td>
+                                                    <input type="number"
+                                                        name="nilai[<?= $kriteria['id_kriteria'] ?>]"
+                                                        class="form-control"
+                                                        step="any"
+                                                        required
+                                                        value="<?= htmlspecialchars($existing_value) ?>"
+                                                        placeholder="Masukkan nilai"
+                                                        style="border-color: <?= $has_value ? '#28a745' : '#ffc107' ?>;">
+                                                </td>
+                                                <!-- <td class="text-center">
                                                         <?php if ($has_value): ?>
                                                             <span class="badge bg-success">
                                                                 <i class="ti ti-check"></i> Tersimpan
@@ -240,7 +253,7 @@ $persentase = $total_kriteria > 0 ? round(($terisi / $total_kriteria) * 100) : 0
                                                             </span>
                                                         <?php endif; ?>
                                                     </td> -->
-                                                    <!-- <td>
+                                                <!-- <td>
                                                         <?php if ($kriteria['jenis_kriteria'] == 'benefit'): ?>
                                                             <small class="text-success">
                                                                 <i class="ti ti-arrow-up"></i> Semakin besar semakin baik
@@ -261,76 +274,83 @@ $persentase = $total_kriteria > 0 ? round(($terisi / $total_kriteria) * 100) : 0
                                                             <?php endif; ?>
                                                         <?php endif; ?>
                                                     </td> -->
-                                                </tr>
-                                            <?php endwhile; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="ti ti-device-floppy"></i> Simpan Nilai
-                                    </button>
-                                    <!-- <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="ti ti-device-floppy"></i> Simpan Nilai
+                                </button>
+                                <!-- <button type="button" class="btn btn-secondary" onclick="resetForm()">
                                         <i class="ti ti-reload"></i> Reset Form
                                     </button> -->
-                                    <!-- <?php if ($persentase == 100): ?>
+                                <!-- <?php if ($persentase == 100): ?>
                                         <a href="nilai.php" class="btn btn-success">
                                             <i class="ti ti-check"></i> Semua Data Lengkap
                                         </a>
                                     <?php endif; ?> -->
-                                </div>
-                            </form>
-                        <?php elseif ($id_kafe == 0): ?>
-                            <div class="alert alert-warning">
-                                <i class="ti ti-alert-triangle"></i> Silakan pilih kafe terlebih dahulu
                             </div>
-                        <?php elseif (mysqli_num_rows($kriteria_list) == 0): ?>
-                            <div class="alert alert-danger">
-                                <i class="ti ti-alert-circle"></i> Belum ada kriteria yang aktif.
-                                <a href="kriteria.php" class="alert-link">Tambahkan kriteria terlebih dahulu</a>
-                            </div>
-                        <?php endif; ?>
+                        </form>
+                    <?php elseif ($id_kafe == 0): ?>
+                        <div class="alert alert-warning">
+                            <i class="ti ti-alert-triangle"></i> Silakan pilih kafe terlebih dahulu
+                        </div>
+                    <?php elseif (mysqli_num_rows($kriteria_list) == 0): ?>
+                        <div class="alert alert-danger">
+                            <i class="ti ti-alert-circle"></i> Belum ada kriteria yang aktif.
+                            <a href="kriteria.php" class="alert-link">Tambahkan kriteria terlebih dahulu</a>
+                        </div>
+                    <?php endif; ?>
                     </div>
                 </div>
-            </div>
 
-            <!-- Tabel Ringkasan Semua Nilai (Opsional) -->
-            <?php if ($id_kafe > 0 && !empty($nilai_details)): ?>
-                <div class="col-md-12 mt-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Ringkasan Nilai <?= htmlspecialchars($nama_kafe) ?> - Tahun <?= $tahun ?></h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Kriteria</th>
-                                            <th>Satuan</th>
-                                            <th>Nilai</th>
-                                            <!-- <th>Status</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($nilai_details as $nilai): ?>
-                                            <tr>
-                                                <td><?= $nilai['nama_kriteria'] ?></td>
-                                                <td><?= $nilai['satuan'] ?></td>
-                                                <td><strong><?= number_format($nilai['nilai'], 2) ?></strong></td>
-                                                <!-- <td>
+
+                <div class="col-md-4"> <!-- Tabel Ringkasan Semua Nilai (Opsional) -->
+                    <?php if ($id_kafe > 0 && !empty($nilai_details)): ?>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Ringkasan Nilai <?= htmlspecialchars($nama_kafe) ?> - Tahun <?= $tahun ?></h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Kriteria</th>
+                                                    <th>Satuan</th>
+                                                    <th>Nilai</th>
+                                                    <!-- <th>Status</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($nilai_details as $nilai): ?>
+                                                    <tr>
+                                                        <td><?= $nilai['nama_kriteria'] ?></td>
+                                                        <td><?= $nilai['satuan'] ?></td>
+                                                        <td><strong><?= number_format($nilai['nilai'], 2) ?></strong></td>
+                                                        <!-- <td>
                                                     <span class="badge bg-success">Tersimpan</span>
                                                 </td> -->
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
+
+
+            </div>
+
+
+
 
         </div>
     </div>

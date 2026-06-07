@@ -133,7 +133,7 @@ $kriteria = query("SELECT * FROM kriteria ORDER BY id_kriteria");
 
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header text-white">
                         <h5 class="mb-0">Tambah Kriteria Baru</h5>
                     </div>
                     <div class="card-body">
@@ -177,8 +177,8 @@ $kriteria = query("SELECT * FROM kriteria ORDER BY id_kriteria");
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
-                            <thead class="table-dark">
-                                <tr>
+                            <thead class="table-light">
+                                <tr class="text-center">
                                     <th>ID</th>
                                     <th>Kode</th>
                                     <th>Nama Kriteria</th>
@@ -209,7 +209,7 @@ $kriteria = query("SELECT * FROM kriteria ORDER BY id_kriteria");
                                                 <input type="checkbox" name="is_active" value="1" <?= $row['is_active'] ? 'checked' : '' ?>>
                                                 <small>Aktif</small>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <button type="submit" name="edit" class="btn btn-warning btn-sm">Update</button>
                                                 <a href="?hapus=<?= $row['id_kriteria'] ?>" onclick="return confirm('Yakin hapus kriteria ini?')" class="btn btn-danger btn-sm">Hapus</a>
                                             </td>

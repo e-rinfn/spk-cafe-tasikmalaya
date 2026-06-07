@@ -61,13 +61,12 @@ if (isset($_SESSION['user_id'])) {
                                     <div class="text-center mb-4">
                                         <img src="https://picsum.photos/id/225/200/200"
                                             alt="Kafe Image"
-                                            class="img-fluid rounded-circle shadow"
+                                            class="img-fluid "
                                             style="width:120px;height:120px;object-fit:cover;">
                                     </div>
-                                    <h3 class="text-center mb-4">SPK Kafe Metode OCRA</h3>
+                                    <h3 class="text-center mb-4">Sistem Pendukung Keputusan Pemilihan Kafe Tasikmalaya Metode OCRA</h3>
 
-                                    <p class="text-center text-muted mb-4">Kota Tasikmalaya</p>
-
+                                    <p class="text-center text-muted mb-4">Operational Competitiveness Rating Analysis</p>
                                     <?php if (isset($_GET['error'])): ?>
                                         <div class="alert alert-danger">Username atau password salah!</div>
                                     <?php endif; ?>

@@ -24,7 +24,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </li>
                 <li class="pc-item <?= ($current_page == 'data_kafe.php') ? 'active' : ''; ?>">
                     <a href="kafe.php" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-building-community"></i></span>
+                        <span class="pc-micon"><i class="ti ti-building-store"></i></span>
                         <span class="pc-mtext">Data Kafe</span>
                     </a>
                 </li>
@@ -42,7 +42,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </li>
                 <li class="pc-item <?= ($current_page == 'sesi_lama.php') ? 'active' : ''; ?>">
                     <a href="sesi_lama.php" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-pencil"></i></span>
+                        <span class="pc-micon"><i class="ti ti-history"></i></span>
                         <span class="pc-mtext">Riwayat Pengujian</span>
                     </a>
                 </li>

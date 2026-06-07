@@ -13,7 +13,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <ul class="pc-navbar">
                 <li class="pc-item <?= ($current_page == 'index.php') ? 'active' : ''; ?>">
                     <a href="index.php" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                        <span class="pc-micon"><i class="ti ti-cup"></i></span>
                         <span class="pc-mtext">Dashboard</span>
                     </a>
                 </li>
@@ -24,13 +24,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </li>
                 <li class="pc-item <?= ($current_page == 'kafe.php') ? 'active' : ''; ?>">
                     <a href="kafe.php" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-building-community"></i></span>
+                        <span class="pc-micon"><i class="ti ti-building-store"></i></span>
                         <span class="pc-mtext">Daftar Kafe</span>
                     </a>
                 </li>
                 <li class="pc-item <?= ($current_page == 'sesi_baru.php') ? 'active' : ''; ?>">
                     <a href="sesi_baru.php" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-building-community"></i></span>
+                        <span class="pc-micon"><i class="ti ti-calculator"></i></span>
                         <span class="pc-mtext">Pengujian</span>
                     </a>
                 </li>
