@@ -14,7 +14,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <li class="pc-item <?= ($current_page == 'index.php') ? 'active' : ''; ?>">
                     <a href="index.php" class="pc-link">
                         <span class="pc-micon"><i class="ti ti-cup"></i></span>
-                        <span class="pc-mtext">Dashboard</span>
+                        <span class="pc-mtext">Beranda</span>
                     </a>
                 </li>
 
