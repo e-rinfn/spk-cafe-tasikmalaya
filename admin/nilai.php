@@ -4,17 +4,27 @@ require_once '../config/database.php';
 $tahun = $_GET['tahun'] ?? date('Y');
 $id_kafe = $_GET['id_kafe'] ?? 0;
 
-// Handle simpan nilai
+// Di bagian proses simpan (admin/nilai.php)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_kafe_post = (int)$_POST['id_kafe'];
     $tahun_post = (int)$_POST['tahun'];
 
     foreach ($_POST['nilai'] as $id_kriteria => $nilai) {
-        $nilai = (float)$nilai;
-        $sql = "INSERT INTO nilai_kafe (id_kafe, id_kriteria, nilai, tahun_penilaian) 
-                VALUES ($id_kafe_post, $id_kriteria, $nilai, $tahun_post)
-                ON DUPLICATE KEY UPDATE nilai = $nilai";
-        query($sql);
+        // Handle nilai kosong menjadi NULL
+        if ($nilai === '' || $nilai === null) {
+            // Hapus record jika ada, atau set NULL
+            $sql = "DELETE FROM nilai_kafe 
+                    WHERE id_kafe = $id_kafe_post 
+                    AND id_kriteria = $id_kriteria 
+                    AND tahun_penilaian = $tahun_post";
+            query($sql);
+        } else {
+            $nilai = (float)str_replace(',', '.', $nilai);
+            $sql = "INSERT INTO nilai_kafe (id_kafe, id_kriteria, nilai, tahun_penilaian) 
+                    VALUES ($id_kafe_post, $id_kriteria, $nilai, $tahun_post)
+                    ON DUPLICATE KEY UPDATE nilai = $nilai";
+            query($sql);
+        }
     }
 
     $_SESSION['success'] = "Nilai berhasil disimpan!";
@@ -235,10 +245,10 @@ $persentase = $total_kriteria > 0 ? round(($terisi / $total_kriteria) * 100) : 0
                                                         name="nilai[<?= $kriteria['id_kriteria'] ?>]"
                                                         class="form-control"
                                                         step="any"
-                                                        required
                                                         value="<?= htmlspecialchars($existing_value) ?>"
-                                                        placeholder="Masukkan nilai"
+                                                        placeholder="Kosongkan jika tidak ada"
                                                         style="border-color: <?= $has_value ? '#28a745' : '#ffc107' ?>;">
+                                                    <small class="text-muted">Biarkan kosong jika tidak ada data</small>
                                                 </td>
                                                 <!-- <td class="text-center">
                                                         <?php if ($has_value): ?>
