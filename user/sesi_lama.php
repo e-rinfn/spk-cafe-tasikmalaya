@@ -178,12 +178,12 @@ $sesi_list = query("SELECT * FROM bobot_sesi ORDER BY id_sesi DESC");
                 </div>
 
                 <!-- Tombol Aksi -->
-                <div class="mb-4 text-center">
+                <div class="mb-4 text-center mt-3">
                     <a href="sesi_baru.php" class="btn btn-primary">
                         <i class="ti ti-plus"></i> Buat Sesi Baru
                     </a>
                 </div>
-                <hr>
+
                 <script>
                     // Update statistik completed
                     document.getElementById('completedCount').innerText = '<?= $completed ?>';

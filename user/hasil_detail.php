@@ -210,12 +210,29 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                                     <i class="ti ti-map-pin"></i> <?= htmlspecialchars($top['kecamatan'] ?? '') ?><br>
                                     <?= htmlspecialchars($top['alamat']) ?>
                                 </p>
-                                <span class="badge bg-success fs-6 px-3 py-2">
-                                    Skor: <?= number_format($top['skor_normal'], 4) ?>
-                                </span>
+
+                                <!-- Skor Normal -->
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-6">
+                                        <div class="card bg-white bg-opacity-50">
+                                            <div class="card-body py-2">
+                                                <small class="text-muted">Skor Normal</small>
+                                                <h4 class="text-success mb-0"><?= number_format($top['skor_normal'], 4) ?></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card bg-white bg-opacity-50">
+                                            <div class="card-body py-2">
+                                                <small class="text-muted">Skor Mentah</small>
+                                                <h4 class="text-secondary mb-0"><?= number_format($top['skor_mentah'], 4) ?></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Tombol Maps untuk Kafe Terbaik -->
-                                <div class="mt-3">
+                                <div class="mt-2">
                                     <?php if ($top['latitude'] && $top['longitude'] && $top['latitude'] != 'NULL' && $top['longitude'] != 'NULL'): ?>
                                         <a href="<?= getGoogleMapsLink($top['latitude'], $top['longitude'], $top['nama_kafe']) ?>"
                                             target="_blank" class="btn btn-success">
@@ -224,7 +241,7 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                                     <?php else: ?>
                                         <a href="<?= getGoogleMapsSearchLink($top['alamat'], $top['nama_kafe']) ?>"
                                             target="_blank" class="btn btn-info">
-                                            <i class="ti ti-map"></i> Google Maps
+                                            <i class="ti ti-search"></i> Cari di Google Maps
                                         </a>
                                     <?php endif; ?>
                                 </div>
@@ -236,7 +253,19 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                         <div class="row">
                             <?php
                             mysqli_data_seek($hasil, 0);
-                            while ($row = fetch_one($hasil)):
+                            // Hitung max skor mentah untuk progress bar
+                            $max_skor_mentah = 0;
+                            $temp_hasil = [];
+                            while ($row_temp = fetch_one($hasil)) {
+                                $temp_hasil[] = $row_temp;
+                                if ($row_temp['skor_mentah'] > $max_skor_mentah) {
+                                    $max_skor_mentah = $row_temp['skor_mentah'];
+                                }
+                            }
+                            // Reset pointer
+                            $hasil_data = $temp_hasil;
+
+                            foreach ($hasil_data as $row):
                                 $hasCoordinates = ($row['latitude'] && $row['longitude'] && $row['latitude'] != 'NULL' && $row['longitude'] != 'NULL');
                             ?>
                                 <div class="col-md-6 col-lg-4 mb-3">
@@ -277,15 +306,36 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                                                 <i class="ti ti-map-pin"></i> <?= htmlspecialchars(substr($row['alamat'], 0, 60)) ?>
                                             </p>
 
-                                            <!-- Skor -->
+                                            <!-- Skor Normal -->
                                             <div class="mb-2">
                                                 <div class="d-flex justify-content-between small">
-                                                    <span>Skor Normal</span>
-                                                    <span class="fw-bold"><?= number_format($row['skor_normal'], 4) ?></span>
+                                                    <span>
+                                                        <i class="ti ti-chart-line text-success"></i> Skor Normal
+                                                    </span>
+                                                    <span class="fw-bold text-success"><?= number_format($row['skor_normal'], 4) ?></span>
                                                 </div>
-                                                <div class="progress" style="height: 5px;">
+                                                <div class="progress" style="height: 6px;">
                                                     <div class="progress-bar bg-success" style="width: <?= $row['skor_normal'] * 100 ?>%"></div>
                                                 </div>
+                                            </div>
+
+                                            <!-- Skor Mentah (Sebelum Normalisasi) -->
+                                            <div class="mb-2">
+                                                <div class="d-flex justify-content-between small">
+                                                    <span>
+                                                        <i class="ti ti-calculator text-secondary"></i> Skor Mentah
+                                                    </span>
+                                                    <span class="fw-bold text-secondary"><?= number_format($row['skor_mentah'], 4) ?></span>
+                                                </div>
+                                                <div class="progress" style="height: 4px;">
+                                                    <?php
+                                                    $persen_mentah = ($max_skor_mentah > 0) ? ($row['skor_mentah'] / $max_skor_mentah) * 100 : 0;
+                                                    ?>
+                                                    <div class="progress-bar bg-secondary" style="width: <?= $persen_mentah ?>%"></div>
+                                                </div>
+                                                <small class="text-muted" style="font-size: 10px;">
+                                                    Skor asli sebelum dinormalisasi
+                                                </small>
                                             </div>
                                         </div>
 
@@ -302,21 +352,21 @@ function getGoogleMapsSearchLink($alamat, $nama_kafe)
                                                         target="_blank"
                                                         class="btn btn-success btn-sm"
                                                         title="Buka Google Maps">
-                                                        <i class="ti ti-map"></i> Google Maps
+                                                        <i class="ti ti-map"></i> Maps
                                                     </a>
                                                 <?php else: ?>
                                                     <a href="<?= getGoogleMapsSearchLink($row['alamat'], $row['nama_kafe']) ?>"
                                                         target="_blank"
                                                         class="btn btn-info btn-sm"
                                                         title="Cari di Google Maps">
-                                                        <i class="ti ti-map"></i> Google Maps
+                                                        <i class="ti ti-search"></i> Cari
                                                     </a>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </div>
 
                     <?php else: ?>
